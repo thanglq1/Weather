@@ -8,18 +8,34 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    @IBOutlet weak var currentTemMax: UILabel!
+    @IBOutlet weak var currentTempMin: UILabel!
+    @IBOutlet weak var currentTempStatus: UILabel!
+    @IBOutlet weak var currentTempIcon: UIImageView!
+    @IBOutlet weak var tableView: UITableView!
 
+    var weatherData = [Weather]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        tableView.register(WeatherCell.self, forCellReuseIdentifier: "WeatherCell")
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
-
-
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return weatherData.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WeatherCell", for: indexPath) as? WeatherCell
+        let weather = weatherData[indexPath.row]
+        cell?.weather = weather
+        return cell!
+    }
 }
 
