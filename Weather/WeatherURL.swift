@@ -16,4 +16,5 @@ class WeatherURL {
     static let currentWeatherURL = "\(basicUrl)data/2.5/weather?"
     static let weatherUnit = "°C"
     static let weatherIcon = "http://openweathermap.org/img/w/"
+    static let forecastWeatherURL = "\(basicUrl)data/2.5/forecast/daily?"
 }

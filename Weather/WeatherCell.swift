@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class WeatherCell: UITableViewCell {
 
@@ -18,7 +19,11 @@ class WeatherCell: UITableViewCell {
     
     var weather: Weather? {
         didSet {
-            
+            weatherTempMax.text = "34343434"
+            //            weatherTempMin.text = String(describing: weather?.tempMin)
+//            date.text = String(describing: weather?.date)
+//            weatherStatus.text = weather?.status
+//            weatherIcon.sd_setImage(with: URL(string: WeatherURL.weatherIcon + (weather?.icon)! + ".png"))
         }
     }
     
@@ -26,7 +31,15 @@ class WeatherCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+   
+    func load (wt: Weather) {
+        weatherTempMax.text = String(describing: weather?.tempMax)
+        weatherTempMin.text = String(describing: weather?.tempMin)
+        date.text = String(describing: weather?.date)
+        weatherStatus.text = wt.status	
+        weatherIcon.sd_setImage(with: URL(string: WeatherURL.weatherIcon + (weather?.icon)! + ".png"))
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
