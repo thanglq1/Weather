@@ -31,8 +31,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 //        tableView.delegate = self
 //        tableView.dataSource = self
         getCurrentLocation()
-        getCurrentWeatherData()
-        getForeCastWeatherData()
+//        getCurrentWeatherData()
+//        getForeCastWeatherData()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,11 +53,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func getCurrentLocation() {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        
+        locationManager.distanceFilter = kCLDistanceFilterNone
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
+        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
             
+            getCurrentWeatherData(latitude: String(describing: locationManager.location?.coordinate.latitude), longtitude: String(describing: locationManager.location?.coordinate.longitude))
+            
+            getForeCastWeatherData(latitude: String(describing: locationManager.location?.coordinate.latitude), longtitude: String(describing: locationManager.location?.coordinate.longitude))
         }
     }
     
@@ -71,8 +79,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         print("locationManager didFailWithError")
     }
     
-    func getCurrentWeatherData() {
-        let url = WeatherURL.currentWeatherURL + WeatherURL.latitude + "21.027668&" + WeatherURL.longtitude + "105.820869&appid=" + WeatherURL.appId
+    func getCurrentWeatherData(latitude: String, longtitude: String) {
+        let url = WeatherURL.currentWeatherURL + WeatherURL.latitude + latitude + "&" + WeatherURL.longtitude + longtitude + "&appid=" + WeatherURL.appId
         print("url ==> \(url)")
         Alamofire.request(url, method: .get).responseJSON { reponse in
             if let json = reponse.result.value {
@@ -108,8 +116,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    func getForeCastWeatherData() {
-        let url = WeatherURL.forecastWeatherURL + WeatherURL.latitude + "21.027668&" + WeatherURL.longtitude + "105.820869&cnt=7&appid=" + WeatherURL.appId
+    func getForeCastWeatherData(latitude: String, longtitude: String) {
+        let url = WeatherURL.forecastWeatherURL + WeatherURL.latitude + latitude + "&" + WeatherURL.longtitude + longtitude + "&cnt=7&appid=" + WeatherURL.appId
         print("url ==> \(url)")
 
         Alamofire.request(url, method: .get).responseJSON { response in
