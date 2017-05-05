@@ -9,8 +9,9 @@
 import UIKit
 import Alamofire
 import SDWebImage
+import CoreLocation
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet weak var currentTemMax: UILabel!
     @IBOutlet weak var currentTempMin: UILabel!
@@ -22,11 +23,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var weatherData = [Weather]()
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 //        tableView.register(WeatherCell.self, forCellReuseIdentifier: cellId)
 //        tableView.delegate = self
 //        tableView.dataSource = self
+        getCurrentLocation()
         getCurrentWeatherData()
         getForeCastWeatherData()
     }
@@ -44,6 +48,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let weather = weatherData[indexPath.row]
         cell.weather = weather
         return cell
+    }
+    
+    func getCurrentLocation() {
+        let locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.startUpdatingLocation()
+            
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let userLocation: CLLocation = locations[0] as CLLocation
+        print("latitude=\(userLocation.coordinate.latitude)")
+        print("longtitude=\(userLocation.coordinate.latitude)")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("locationManager didFailWithError")
     }
     
     func getCurrentWeatherData() {
