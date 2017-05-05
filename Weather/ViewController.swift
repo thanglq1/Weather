@@ -18,14 +18,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var currentTempIcon: UIImageView!
     @IBOutlet weak var tableView: UITableView!
 
+    let cellId = "WeatherCellId"
+    
     var weatherData = [Weather]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //tableView.register(WeatherCell.self, forCellReuseIdentifier: "WeatherCell")
-        tableView.register(UINib.init(nibName: "111111", bundle: nil), forCellReuseIdentifier: "111111")
-        tableView.delegate = self
-        tableView.dataSource = self
+//        tableView.register(WeatherCell.self, forCellReuseIdentifier: cellId)
+//        tableView.delegate = self
+//        tableView.dataSource = self
         getCurrentWeatherData()
         getForeCastWeatherData()
     }
@@ -39,11 +40,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "111111", for: indexPath) as! 111111
-        cell.weatherStatus.text = "323232"
-//        let weather = weatherData[indexPath.row]
-//        print(weather.status!)
-//        cell.weather = weather
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! WeatherCell
+        let weather = weatherData[indexPath.row]
+        cell.weather = weather
         return cell
     }
     
@@ -90,7 +89,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         Alamofire.request(url, method: .get).responseJSON { response in
             if let json = response.result.value {
-//                print("json ==>\(json)")
+                print("json ==>\(json)")
                 if let dictionary = json as? [String: AnyObject] {
                     if let listObject = dictionary["list"] as? NSArray {
                         for eachItem in listObject {
@@ -98,13 +97,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                             let date = data?["dt"] as? Int
                             var minTemp = 0
                             var maxTemp = 0
-//                            print("data = \(data)")
-                            if let main = data?["main"] as? [String: AnyObject] {
-                                if let tempMin = main["temp_min"] as? Double {
+
+                            if let main = data?["temp"] as? [String: AnyObject] {
+                                if let tempMin = main["min"] as? Double {
                                     minTemp = (Int)(tempMin - 273.15)
                                 }
                                 
-                                if let tempMax = main["temp_max"] as? Double {
+                                if let tempMax = main["max"] as? Double {
                                     maxTemp = (Int)(tempMax - 273.15)
                                 }
                             }
@@ -117,15 +116,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                                     status = (firstItem["main"] as? String)!
                                 }
                             }
-//                            print("status==>\(status)")
-//                            print("icon==>\(icon)")
+
                             
                             let weather = Weather(icon: icon, date: date!, status: status, tempMax: maxTemp, tempMin: minTemp)
                             
                             self.weatherData.append(weather)
                         }
-                        print(self.weatherData)
-//                        print("size=\(self.weatherData.count)")
+
                         DispatchQueue.main.async {
                             self.tableView.reloadData()
                         }

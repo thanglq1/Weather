@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0703EA481EBB060C006DA1B1 /* WeatherURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0703EA471EBB060C006DA1B1 /* WeatherURL.swift */; };
+		073A2EFC1EBC1C960038F3B6 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073A2EFB1EBC1C960038F3B6 /* DateUtils.swift */; };
 		076AAC621EBAE79600B59CEB /* WeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076AAC611EBAE79600B59CEB /* WeatherCell.swift */; };
 		076AAC641EBAE7AC00B59CEB /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076AAC631EBAE7AC00B59CEB /* Weather.swift */; };
 		07BA08981EBADB87003B1D04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07BA08971EBADB87003B1D04 /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		0703EA471EBB060C006DA1B1 /* WeatherURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherURL.swift; sourceTree = "<group>"; };
+		073A2EFB1EBC1C960038F3B6 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		076AAC611EBAE79600B59CEB /* WeatherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
 		076AAC631EBAE7AC00B59CEB /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		07BA08941EBADB87003B1D04 /* Weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -72,6 +74,7 @@
 				076AAC611EBAE79600B59CEB /* WeatherCell.swift */,
 				076AAC631EBAE7AC00B59CEB /* Weather.swift */,
 				0703EA471EBB060C006DA1B1 /* WeatherURL.swift */,
+				073A2EFB1EBC1C960038F3B6 /* DateUtils.swift */,
 				07BA089B1EBADB87003B1D04 /* Main.storyboard */,
 				07BA089E1EBADB87003B1D04 /* Assets.xcassets */,
 				07BA08A01EBADB87003B1D04 /* LaunchScreen.storyboard */,
@@ -221,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0703EA481EBB060C006DA1B1 /* WeatherURL.swift in Sources */,
+				073A2EFC1EBC1C960038F3B6 /* DateUtils.swift in Sources */,
 				076AAC641EBAE7AC00B59CEB /* Weather.swift in Sources */,
 				07BA089A1EBADB87003B1D04 /* ViewController.swift in Sources */,
 				07BA08981EBADB87003B1D04 /* AppDelegate.swift in Sources */,
